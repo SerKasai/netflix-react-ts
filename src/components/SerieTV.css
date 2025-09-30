@@ -1,0 +1,12 @@
+.img-card:hover {
+  filter: brightness(0.2);
+}
+
+#info:hover {
+  background-color: #000000cc;
+  border: 2px solid white;
+}
+
+#card-container:hover #info {
+  display: block;
+}
