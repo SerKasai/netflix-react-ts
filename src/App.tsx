@@ -4,6 +4,7 @@
 import "./App.css";
 import MainHeader from "./components/MainHeader";
 import SerieTV from "./components/SerieTV";
+import Film from "./components/Film";
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -12,6 +13,7 @@ function App() {
     <>
       <MainHeader />
       <SerieTV />
+      <Film />
     </>
   );
 }

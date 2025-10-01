@@ -1,3 +1,5 @@
+import SearchBar from "./searchbar/SearchBar";
+
 type Menu = { id: number; category: string };
 
 const headerMenu: Menu[] = [
@@ -34,21 +36,18 @@ function MainHeader() {
           </li>
         ))}
       </ul>
-      <div className="contrast-[0.5] flex gap-x-10 grow-1 justify-end">
+
+      <div className="flex gap-x-10 grow-1 justify-end h-[30px]">
+        <SearchBar />
         <img
           src="/src/assets/img/pngwing.com.png"
           alt="cast"
-          className="cursor-pointer hover:invert-100"
-        />
-        <img
-          src="/src/assets/img/search.png"
-          alt="search"
-          className="cursor-pointer hover:invert-100"
+          className="contrast-[0.5] cursor-pointer hover:invert-100"
         />
         <img
           src="/src/assets/img/user.png"
           alt="user"
-          className="cursor-pointer hover:invert-100"
+          className="contrast-[0.5] cursor-pointer hover:invert-100"
         />
       </div>
     </header>

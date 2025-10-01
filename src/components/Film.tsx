@@ -6,12 +6,12 @@ import "slick-carousel/slick/slick-theme.css";
 
 type List = {
   id: number;
-  origin_country: string;
-  original_name: string;
+  original_language: string;
+  original_title: string;
   overview: string;
-  name: string;
+  title: string;
   poster_path: string;
-  vote: number;
+  vote_average: number;
 };
 
 const URLSearchParams = {
@@ -20,8 +20,8 @@ const URLSearchParams = {
   string_image: "https://image.tmdb.org/t/p/w342",
 };
 
-function SerieTV() {
-  const baseURL = `https://api.themoviedb.org/3/tv/popular${URLSearchParams.language}${URLSearchParams.api_key}`;
+function Film() {
+  const baseURL = `https://api.themoviedb.org/3/movie/popular${URLSearchParams.language}${URLSearchParams.api_key}`;
   const { data: posters, loading, error } = useFetch<List[]>(baseURL);
 
   console.log(posters);
@@ -44,32 +44,34 @@ function SerieTV() {
   return (
     <main>
       <div className="flex flex-col items-start">
-        <h2 className="p-4">Serie TV popolari</h2>
+        <h2 className="p-4">Film popolari</h2>
         <ul className="justify-between flex-wrap gap-y-5 w-full cursor-default">
           <Slider {...settings}>
-            {posters?.results.map((tv: List) => (
-              <li key={tv.id} className="w-72! h-96! block!">
+            {posters?.results.map((movie: List) => (
+              <li key={movie.id} className="w-72! h-96! block!">
                 <div id="card-container" className="h-full">
                   <img
-                    src={`${URLSearchParams.string_image}${tv.poster_path}`}
+                    src={`${URLSearchParams.string_image}${movie.poster_path}`}
                     alt="poster"
                     className="w-72 aspect-[3/4] cursor-pointer img-card"
                   />
                   <div id="info" className="relative bottom-full hidden h-full">
                     <h2 className="text-shadow-lg text-shadow-black text-red-600 py-4">
-                      {tv.name}
+                      {movie.title}
                     </h2>
+
                     <h2>
-                      {tv.name !== tv.original_name && (
+                      {movie.title !== movie.original_title && (
                         <>
                           Titolo originale: <br />
                           <p className="text-shadow-lg text-shadow-red-700 py-2.5">
-                            {tv.original_name} ( {tv.origin_country} )
+                            {movie.original_title} ({" "}
+                            {movie.original_language.toUpperCase()} )
                           </p>
                         </>
                       )}
                     </h2>
-                    <p>{tv.overview}</p>
+                    <p>{movie.overview}</p>
                   </div>
                 </div>
               </li>
@@ -80,4 +82,4 @@ function SerieTV() {
     </main>
   );
 }
-export default SerieTV;
+export default Film;
