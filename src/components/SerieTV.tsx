@@ -1,5 +1,8 @@
 import { useFetch } from "../hooks/FetchReducer";
 import "./SerieTV.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 type List = {
   id: number;
@@ -24,6 +27,14 @@ function SerieTV() {
 
   console.log(posters);
 
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+  };
+
   if (loading) {
     return <div>Caricamento eroi...</div>;
   }
@@ -35,28 +46,30 @@ function SerieTV() {
     <main>
       <div className="flex flex-col items-start">
         <h2 className="p-4">Serie TV popolari</h2>
-        <ul className="flex justify-between flex-wrap gap-y-5 w-full">
-          {posters?.results.slice(0, 6).map((tv: List) => (
-            <li key={tv.id} className="flex flex-col w-72 h-96">
-              <div id="card-container" className="h-full">
-                <img
-                  src={`${URLSearchParams.string_image}${tv.poster_path}`}
-                  alt="poster"
-                  className="w-72 aspect-[3/4] cursor-pointer img-card"
-                />
-                <div id="info" className="relative bottom-full hidden h-full">
-                  <h2 className="text-red-600 py-4">{tv.name}</h2>
-                  <h2>
-                    Titolo originale: <br />
-                    <p className="text-shadow-lg text-shadow-red-700 py-2.5">
-                      {tv.original_name} ( {tv.origin_country} )
-                    </p>
-                  </h2>
-                  <p>{tv.overview}</p>
+        <ul className="justify-between flex-wrap gap-y-5 w-full cursor-default">
+          <Slider {...settings}>
+            {posters?.results.map((tv: List) => (
+              <li key={tv.id} className="w-72! h-96! block!">
+                <div id="card-container" className="h-full">
+                  <img
+                    src={`${URLSearchParams.string_image}${tv.poster_path}`}
+                    alt="poster"
+                    className="w-72 aspect-[3/4] cursor-pointer img-card"
+                  />
+                  <div id="info" className="relative bottom-full hidden h-full">
+                    <h2 className="text-red-600 py-4">{tv.name}</h2>
+                    <h2>
+                      Titolo originale: <br />
+                      <p className="text-shadow-lg text-shadow-red-700 py-2.5">
+                        {tv.original_name} ( {tv.origin_country} )
+                      </p>
+                    </h2>
+                    <p>{tv.overview}</p>
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
+              </li>
+            ))}
+          </Slider>
         </ul>
       </div>
     </main>
