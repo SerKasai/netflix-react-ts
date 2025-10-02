@@ -43,7 +43,7 @@ function SerieTV({ search = "" }: Props) {
   };
 
   if (loading) {
-    return <div>Caricamento eroi...</div>;
+    return <div>Caricamento...</div>;
   }
   if (error) {
     return <div>Errore di caricamento! {error}</div>;
