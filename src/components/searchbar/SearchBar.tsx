@@ -2,21 +2,27 @@ import React from "react";
 import "./SearchBar.css";
 import { useState, useEffect } from "react";
 
-const SearchBar = () => {
+type Props = {
+  value?: string;
+  onChange?: (value: string) => void;
+};
+
+const SearchBar = ({ value = "", onChange }: Props) => {
   const [active, setActive] = useState(false);
   const input = React.useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (active && input.current) input.current.focus();
   }, [active]);
-  return (
-    // <div className="container">
 
+  return (
     <div className="searchbar">
       <input
         type="text"
         className={active ? "input active" : "input"}
         placeholder="Cerca Film o Serie TV"
         ref={input}
+        value={value}
+        onChange={(e) => onChange && onChange(e.target.value)}
       />
       <button className="btn" onClick={() => setActive(!active)}>
         <img
@@ -26,8 +32,6 @@ const SearchBar = () => {
         />
       </button>
     </div>
-
-    // </div>
   );
 };
 

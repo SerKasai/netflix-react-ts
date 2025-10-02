@@ -20,9 +20,17 @@ const URLSearchParams = {
   string_image: "https://image.tmdb.org/t/p/w342",
 };
 
-function SerieTV() {
+type Props = {
+  search?: string;
+};
+
+function SerieTV({ search = "" }: Props) {
   const baseURL = `https://api.themoviedb.org/3/tv/popular${URLSearchParams.language}${URLSearchParams.api_key}`;
-  const { data: posters, loading, error } = useFetch<List[]>(baseURL);
+  const {
+    data: posters,
+    loading,
+    error,
+  } = useFetch<{ results: List[] }>(baseURL);
 
   console.log(posters);
 
@@ -40,6 +48,16 @@ function SerieTV() {
   if (error) {
     return <div>Errore di caricamento! {error}</div>;
   }
+  const query = search.trim().toLowerCase();
+  // posters from the hook is the full response; access results defensively
+  const results: List[] = posters?.results ?? [];
+  const filtered = results.filter((tv: List) => {
+    if (!query) return true;
+    const name = (tv.name || "").toString().toLowerCase();
+    const original = (tv.original_name || "").toString().toLowerCase();
+    return name.includes(query) || original.includes(query);
+  });
+  const items = filtered;
 
   return (
     <main>
@@ -47,7 +65,7 @@ function SerieTV() {
         <h2 className="p-4">Serie TV popolari</h2>
         <ul className="justify-between flex-wrap gap-y-5 w-full cursor-default">
           <Slider {...settings}>
-            {posters?.results.map((tv: List) => (
+            {items.map((tv: List) => (
               <li key={tv.id} className="w-72! h-96! block!">
                 <div id="card-container" className="h-full">
                   <img

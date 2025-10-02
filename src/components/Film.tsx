@@ -20,9 +20,17 @@ const URLSearchParams = {
   string_image: "https://image.tmdb.org/t/p/w342",
 };
 
-function Film() {
+type Props = {
+  search?: string;
+};
+
+function Film({ search = "" }: Props) {
   const baseURL = `https://api.themoviedb.org/3/movie/popular${URLSearchParams.language}${URLSearchParams.api_key}`;
-  const { data: posters, loading, error } = useFetch<List[]>(baseURL);
+  const {
+    data: posters,
+    loading,
+    error,
+  } = useFetch<{ results: List[] }>(baseURL);
 
   console.log(posters);
 
@@ -41,13 +49,23 @@ function Film() {
     return <div>Errore di caricamento! {error}</div>;
   }
 
+  const query = search.trim().toLowerCase();
+  const results: List[] = posters?.results ?? [];
+  const filtered = results.filter((movie: List) => {
+    if (!query) return true;
+    const title = (movie.title || "").toString().toLowerCase();
+    const original = (movie.original_title || "").toString().toLowerCase();
+    return title.includes(query) || original.includes(query);
+  });
+  const items = filtered;
+
   return (
     <main>
       <div className="flex flex-col items-start">
         <h2 className="p-4">Film popolari</h2>
         <ul className="justify-between flex-wrap gap-y-5 w-full cursor-default">
           <Slider {...settings}>
-            {posters?.results.map((movie: List) => (
+            {items.map((movie: List) => (
               <li key={movie.id} className="w-72! h-96! block!">
                 <div id="card-container" className="h-full">
                   <img
