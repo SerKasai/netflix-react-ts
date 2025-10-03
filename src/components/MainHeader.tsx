@@ -1,4 +1,5 @@
 import SearchBar from "./searchbar/SearchBar";
+import { Link } from "react-router";
 
 type Menu = { id: number; category: string };
 
@@ -7,7 +8,7 @@ type Props = {
   onSearchChange?: (value: string) => void;
 };
 
-const headerMenu: Menu[] = [
+const navbar: Menu[] = [
   {
     id: 1,
     category: "Serie TV",
@@ -28,17 +29,24 @@ const headerMenu: Menu[] = [
 
 function MainHeader({ searchValue, onSearchChange }: Props) {
   return (
-    <header className="flex h-14 items-center justify-between">
-      <img
-        src="/src/assets/img/330px-Netflix_2015_N_logo.svg.png"
-        alt="logo"
-        className="max-w-[30px] cursor-pointer"
-      />
+    <header className="flex h-14 items-center justify-between fixed z-50 bg-black w-[97.4%] p-7">
+      <Link to={"/"}>
+        <img
+          src="/src/assets/img/330px-Netflix_2015_N_logo.svg.png"
+          alt="logo"
+          className="max-w-[30px] cursor-pointer p-[3px]"
+        />
+      </Link>
       <ul className="flex flex-row gap-x-14 px-16">
-        {headerMenu.map((link) => (
-          <li key={link.id} className="cursor-pointer">
-            <p>{link.category}</p>
-          </li>
+        {navbar.map((link) => (
+          <Link
+            to={"/" + link.category.toLocaleLowerCase().replace(/\s/g, "")}
+            className="text-white!"
+          >
+            <li key={link.id} className="cursor-pointer">
+              <p>{link.category}</p>
+            </li>
+          </Link>
         ))}
       </ul>
 
