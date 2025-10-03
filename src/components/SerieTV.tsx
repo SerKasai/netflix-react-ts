@@ -11,7 +11,6 @@ type List = {
   overview: string;
   name: string;
   poster_path: string;
-  vote: number;
 };
 
 const URLSearchParams = {
@@ -49,7 +48,6 @@ function SerieTV({ search = "" }: Props) {
     return <div>Errore di caricamento! {error}</div>;
   }
   const query = search.trim().toLowerCase();
-  // posters from the hook is the full response; access results defensively
   const results: List[] = posters?.results ?? [];
   const filtered = results.filter((tv: List) => {
     if (!query) return true;

@@ -7,9 +7,12 @@ import "slick-carousel/slick/slick-theme.css";
 type List = {
   id: number;
   original_language: string;
+  origin_country: string;
   original_title: string;
+  original_name: string;
   overview: string;
   title: string;
+  name: string;
   poster_path: string;
 };
 
@@ -23,8 +26,8 @@ type Props = {
   search?: string;
 };
 
-function Film({ search = "" }: Props) {
-  const baseURL = `https://api.themoviedb.org/3/movie/popular${URLSearchParams.language}${URLSearchParams.api_key}`;
+function Tranding({ search = "" }: Props) {
+  const baseURL = `https://api.themoviedb.org/3/trending/all/day${URLSearchParams.language}${URLSearchParams.api_key}`;
   const {
     data: posters,
     loading,
@@ -50,10 +53,14 @@ function Film({ search = "" }: Props) {
 
   const query = search.trim().toLowerCase();
   const results: List[] = posters?.results ?? [];
-  const filtered = results.filter((movie: List) => {
+  const filtered = results.filter((tranding: List) => {
     if (!query) return true;
-    const title = (movie.title || "").toString().toLowerCase();
-    const original = (movie.original_title || "").toString().toLowerCase();
+    const title = (tranding.title || tranding.name || "")
+      .toString()
+      .toLowerCase();
+    const original = (tranding.original_title || tranding.original_name || "")
+      .toString()
+      .toLowerCase();
     return title.includes(query) || original.includes(query);
   });
   const items = filtered;
@@ -61,34 +68,39 @@ function Film({ search = "" }: Props) {
   return (
     <main>
       <div className="flex flex-col items-start">
-        <h2 className="p-4">Film popolari</h2>
+        <h2 className="p-4">In tendenza</h2>
         <ul className="justify-between flex-wrap gap-y-5 w-full cursor-default">
           <Slider {...settings}>
-            {items.map((movie: List) => (
-              <li key={movie.id} className="w-72! h-96! block!">
+            {items.map((tranding: List) => (
+              <li key={tranding.id} className="w-72! h-96! block!">
                 <div id="card-container" className="h-full">
                   <img
-                    src={`${URLSearchParams.string_image}${movie.poster_path}`}
+                    src={`${URLSearchParams.string_image}${tranding.poster_path}`}
                     alt="poster"
                     className="w-72 aspect-[3/4] cursor-pointer img-card"
                   />
                   <div id="info" className="relative bottom-full hidden h-full">
                     <h2 className="text-shadow-lg text-shadow-black text-red-600 py-4">
-                      {movie.title}
+                      {tranding.title || tranding.name}
                     </h2>
 
                     <h2>
-                      {movie.title !== movie.original_title && (
-                        <>
-                          Titolo originale: <br />
-                          <p className="text-shadow-lg text-shadow-red-700 py-2.5">
-                            {movie.original_title} ({" "}
-                            {movie.original_language.toUpperCase()} )
-                          </p>
-                        </>
-                      )}
+                      {tranding.title !== tranding.original_title ||
+                        (tranding.name !== tranding.original_name && (
+                          <>
+                            Titolo originale: <br />
+                            <p className="text-shadow-lg text-shadow-red-700 py-2.5">
+                              {tranding.original_title ||
+                                tranding.original_name}{" "}
+                              ({" "}
+                              {tranding.original_language.toUpperCase() ||
+                                tranding.original_name.toUpperCase()}{" "}
+                              )
+                            </p>
+                          </>
+                        ))}
                     </h2>
-                    <p>{movie.overview}</p>
+                    <p>{tranding.overview}</p>
                   </div>
                 </div>
               </li>
@@ -99,4 +111,4 @@ function Film({ search = "" }: Props) {
     </main>
   );
 }
-export default Film;
+export default Tranding;

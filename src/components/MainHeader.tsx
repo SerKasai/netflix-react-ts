@@ -18,7 +18,7 @@ const headerMenu: Menu[] = [
   },
   {
     id: 3,
-    category: "Aggiunti di recente",
+    category: "In tendenza",
   },
   {
     id: 4,

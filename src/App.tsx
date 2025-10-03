@@ -2,6 +2,7 @@ import "./App.css";
 import MainHeader from "./components/MainHeader";
 import SerieTV from "./components/SerieTV";
 import Film from "./components/Film";
+import Tranding from "./components/Tranding";
 import { useState } from "react";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       />
       <SerieTV search={search} />
       <Film search={search} />
+      <Tranding search={search} />
     </>
   );
 }
