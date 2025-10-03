@@ -40,6 +40,7 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
       <ul className="flex flex-row gap-x-14 px-16">
         {navbar.map((link) => (
           <Link
+            key={link.id}
             to={"/" + link.category.toLocaleLowerCase().replace(/\s/g, "")}
             className="text-white!"
           >

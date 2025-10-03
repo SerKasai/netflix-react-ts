@@ -66,7 +66,7 @@ function Tranding({ search = "" }: Props) {
   const items = filtered;
 
   return (
-    <main>
+    <main className="pb-9">
       <div className="flex flex-col items-start">
         <h2 className="p-4">In tendenza</h2>
         <ul className="justify-between flex-wrap gap-y-5 w-full cursor-default">

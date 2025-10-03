@@ -3,7 +3,7 @@ import "./SerieTV.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import MainHeader from "./MainHeader";
+// import MainHeader from "./MainHeader";
 
 type List = {
   id: number;
@@ -60,8 +60,8 @@ function SerieTV({ search = "" }: Props) {
 
   return (
     <>
-      <MainHeader />
-      <main>
+      {/* <MainHeader /> */}
+      <main className="pt-14">
         <div className="flex flex-col items-start">
           <h2 className="p-4">Serie TV popolari</h2>
           <ul className="justify-between flex-wrap gap-y-5 w-full cursor-default">
