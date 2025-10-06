@@ -79,7 +79,10 @@ function Tranding({ search = "" }: Props) {
                     alt="poster"
                     className="w-72 aspect-[3/4] cursor-pointer img-card"
                   />
-                  <div id="info" className="relative bottom-full hidden h-full">
+                  <div
+                    id="info"
+                    className="relative bottom-full hidden h-full overflow-auto"
+                  >
                     <h2 className="text-shadow-lg text-shadow-black text-red-600 py-4">
                       {tranding.title || tranding.name}
                     </h2>

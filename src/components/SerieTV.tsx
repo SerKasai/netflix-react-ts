@@ -76,7 +76,7 @@ function SerieTV({ search = "" }: Props) {
                     />
                     <div
                       id="info"
-                      className="relative bottom-full hidden h-full"
+                      className="relative bottom-full hidden h-full overflow-auto"
                     >
                       <h2 className="text-shadow-lg text-shadow-black text-red-600 py-4">
                         {tv.name}
