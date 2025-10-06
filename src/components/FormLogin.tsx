@@ -1,18 +1,98 @@
 import styled from "styled-components";
+import { useState } from "react";
+import type { FormEvent } from "react";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+} from "firebase/auth";
+import type { User } from "firebase/auth";
+import { auth } from "./Firebase";
 
 const FormLogin = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
+  // Gestione stato utente (listener)
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      setCurrentUser(user);
+    } else {
+      setCurrentUser(null);
+    }
+  });
+
+  // Registrazione con Email e Password
+  const handleSignUp = async (e: FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Errore sconosciuto");
+      }
+    }
+  };
+
+  // Login con Email e Password
+  const handleSignIn = async (e: FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Errore sconosciuto");
+      }
+    }
+  };
+
+  // Login con Provider Social
+  const handleSocialLogin = (
+    provider: GoogleAuthProvider | GithubAuthProvider
+  ) => {
+    signInWithPopup(auth, provider).catch((err) => setError(err.message));
+  };
+
+  const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
+
+  // Logout
+  const handleLogout = () => {
+    auth.signOut();
+  };
+
+  if (currentUser) {
+    return (
+      <div>
+        <h2>Benvenuto, {currentUser.displayName || currentUser.email}!</h2>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+    );
+  }
   return (
     <StyledWrapper>
       <div className="form-container bg-black!">
-        <p className="title">Login</p>
+        <p className="title">Accedi o registrati</p>
         <form className="form">
           <div className="input-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Email</label>
             <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Username"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              id="email"
+              placeholder="Email"
               className="bg-[#2a2a2a]!"
             />
           </div>
@@ -20,6 +100,8 @@ const FormLogin = () => {
             <label htmlFor="password">Password</label>
             <input
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               name="password"
               id="password"
               placeholder="Password"
@@ -27,19 +109,26 @@ const FormLogin = () => {
             />
             <div className="forgot">
               <a rel="noopener noreferrer" href="#">
-                Forgot Password ?
+                Password dimenticata?
               </a>
             </div>
           </div>
-          <button className="sign bg-white!">Sign in</button>
+          <button className="sign bg-white!" onClick={handleSignIn}>
+            Accedi
+          </button>
         </form>
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <div className="social-message">
           <div className="line" />
-          <p className="message">Login with social accounts</p>
+          <p className="message">Oppure accedi con:</p>
           <div className="line" />
         </div>
         <div className="social-icons">
-          <button aria-label="Log in with Google" className="icon">
+          <button
+            aria-label="Log in with Google"
+            className="icon"
+            onClick={() => handleSocialLogin(googleProvider)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 32 32"
@@ -48,7 +137,11 @@ const FormLogin = () => {
               <path d="M16.318 13.714v5.484h9.078c-0.37 2.354-2.745 6.901-9.078 6.901-5.458 0-9.917-4.521-9.917-10.099s4.458-10.099 9.917-10.099c3.109 0 5.193 1.318 6.38 2.464l4.339-4.182c-2.786-2.599-6.396-4.182-10.719-4.182-8.844 0-16 7.151-16 16s7.156 16 16 16c9.234 0 15.365-6.49 15.365-15.635 0-1.052-0.115-1.854-0.255-2.651z" />
             </svg>
           </button>
-          <button aria-label="Log in with GitHub" className="icon">
+          <button
+            aria-label="Log in with GitHub"
+            className="icon"
+            onClick={() => handleSocialLogin(githubProvider)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 32 32"
@@ -59,9 +152,9 @@ const FormLogin = () => {
           </button>
         </div>
         <p className="signup">
-          Don't have an account?
-          <a rel="noopener noreferrer" href="#">
-            Sign up
+          Non hai un account?
+          <a rel="noopener noreferrer" href="#" onClick={handleSignUp}>
+            Registrati
           </a>
         </p>
       </div>
