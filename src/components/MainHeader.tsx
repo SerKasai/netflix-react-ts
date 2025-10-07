@@ -84,7 +84,7 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
         <img
           src="/src/assets/img/330px-Netflix_2015_N_logo.svg.png"
           alt="logo"
-          className="max-w-[30px] cursor-pointer p-[3px]"
+          className="max-w-[30px] cursor-pointer p-[3px] hidden sm:block"
         />
       </Link>
       {/* Desktop nav - hidden on small screens */}
@@ -102,7 +102,7 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
         ))}
       </ul>
 
-      <div className="flex gap-x-10 grow-1 justify-end! h-[30px] items-center">
+      <div className="flex gap-x-10 grow-1 justify-center! h-[30px] items-center sm:justify-end!">
         {/* Mobile hamburger */}
         <button
           className="lg:hidden mr-2"
@@ -170,7 +170,7 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
         {/* Mobile toolbar */}
         {mobileOpen && (
           <div className="fixed inset-0 z-70 bg-black/60 flex">
-            <div className="ml-auto w-3/4 sm:w-1/3 bg-black text-white p-6 transform transition-transform duration-300 translate-x-0">
+            <div className="w-3/4 sm:w-1/3 bg-black text-white p-6 transform transition-transform duration-300 translate-x-0">
               <div className="flex items-center justify-between mb-4">
                 <Link to="/">
                   <img
