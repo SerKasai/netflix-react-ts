@@ -127,7 +127,7 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
         </button>
         <SearchBar value={searchValue ?? ""} onChange={onSearchChange} />
         <img
-          src="/src/assets/img/pngwing.com.png"
+          src="/assets/img/pngwing.com.png"
           alt="cast"
           className="contrast-[0.5] cursor-pointer hover:invert-100"
         />

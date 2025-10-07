@@ -54,7 +54,7 @@ const SearchBar = ({ value = "", onChange }: Props) => {
 
         <button className="btn ml-2" onClick={() => setActive(!active)}>
           <img
-            src="/src/assets/img/search.png"
+            src="/assets/img/search.png"
             alt="search"
             className="contrast-[0.5] hover:invert-100 pl-1"
           />
