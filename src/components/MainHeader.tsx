@@ -82,7 +82,7 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
     <header className="flex h-14 items-center justify-between fixed z-50 bg-black w-[97.4%] p-7">
       <Link to={"/"}>
         <img
-          src="/src/assets/img/330px-Netflix_2015_N_logo.svg.png"
+          src="/assets/img/330px-Netflix_2015_N_logo.svg.png"
           alt="logo"
           className="max-w-[30px] cursor-pointer p-[3px] hidden sm:block"
         />
@@ -174,7 +174,7 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
               <div className="flex items-center justify-between mb-4">
                 <Link to="/">
                   <img
-                    src="/src/assets/img/330px-Netflix_2015_N_logo.svg.png"
+                    src="/assets/img/330px-Netflix_2015_N_logo.svg.png"
                     alt="logo"
                     className="w-8"
                   />
