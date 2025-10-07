@@ -210,7 +210,7 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
               </div>
               <div className="flex items-center gap-4">
                 <img
-                  src="/src/assets/img/pngwing.com.png"
+                  src="/assets/img/pngwing.com.png"
                   alt="cast"
                   className="w-6"
                 />
