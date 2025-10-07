@@ -3,6 +3,7 @@ import "./SerieTV.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useWindowWidth } from "../hooks/useWindowWidth";
 
 type List = {
   id: number;
@@ -41,6 +42,9 @@ function Film({ search = "" }: Props) {
     slidesToScroll: 1,
   };
 
+  const width = useWindowWidth();
+  const useSlider = width > 1800;
+
   if (loading) {
     return <div>Caricamento...</div>;
   }
@@ -63,40 +67,54 @@ function Film({ search = "" }: Props) {
       <div className="flex flex-col items-start">
         <h2 className="p-4">Film popolari</h2>
         <ul className="justify-between flex-wrap gap-y-5 w-full cursor-default">
-          <Slider {...settings}>
-            {items.map((movie: List) => (
-              <li key={movie.id} className="w-72! h-96! block!">
-                <div id="card-container" className="h-full">
+          {useSlider ? (
+            <Slider {...settings}>
+              {items.map((movie: List) => (
+                <li key={movie.id} className="w-72! h-96! block!">
+                  <div id="card-container" className="h-full">
+                    <img
+                      src={`${URLSearchParams.string_image}${movie.poster_path}`}
+                      alt="poster"
+                      className="w-72 aspect-[3/4] cursor-pointer img-card"
+                    />
+                    <div
+                      id="info"
+                      className="relative bottom-full hidden h-full overflow-auto"
+                    >
+                      <h2 className="text-shadow-lg text-shadow-black text-red-600 py-4">
+                        {movie.title}
+                      </h2>
+
+                      <h2>
+                        {movie.title !== movie.original_title && (
+                          <>
+                            Titolo originale: <br />
+                            <p className="text-shadow-lg text-shadow-red-700 py-2.5">
+                              {movie.original_title} ({" "}
+                              {movie.original_language.toUpperCase()} )
+                            </p>
+                          </>
+                        )}
+                      </h2>
+                      <p>{movie.overview}</p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </Slider>
+          ) : (
+            <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+              {items.map((movie: List) => (
+                <div key={movie.id} className="p-2">
                   <img
                     src={`${URLSearchParams.string_image}${movie.poster_path}`}
                     alt="poster"
-                    className="w-72 aspect-[3/4] cursor-pointer img-card"
+                    className="w-full aspect-[3/4] object-cover rounded"
                   />
-                  <div
-                    id="info"
-                    className="relative bottom-full hidden h-full overflow-auto"
-                  >
-                    <h2 className="text-shadow-lg text-shadow-black text-red-600 py-4">
-                      {movie.title}
-                    </h2>
-
-                    <h2>
-                      {movie.title !== movie.original_title && (
-                        <>
-                          Titolo originale: <br />
-                          <p className="text-shadow-lg text-shadow-red-700 py-2.5">
-                            {movie.original_title} ({" "}
-                            {movie.original_language.toUpperCase()} )
-                          </p>
-                        </>
-                      )}
-                    </h2>
-                    <p>{movie.overview}</p>
-                  </div>
                 </div>
-              </li>
-            ))}
-          </Slider>
+              ))}
+            </div>
+          )}
         </ul>
       </div>
     </main>
