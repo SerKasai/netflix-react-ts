@@ -80,8 +80,10 @@ const FormLogin = () => {
     );
   }
   return (
-    <StyledWrapper>
-      <div className="form-container bg-black!">
+    <StyledWrapper className="flex justify-center">
+      <div className=" flex flex-col form-container bg-black!">
+        <h1 className="p-2">Benvenuto su</h1>
+        <h1 className="text-red-600 p-2.5">Netflix</h1>
         <p className="title">Accedi o registrati</p>
         <form className="form">
           <div className="input-group">
@@ -153,7 +155,12 @@ const FormLogin = () => {
         </div>
         <p className="signup">
           Non hai un account?
-          <a rel="noopener noreferrer" href="#" onClick={handleSignUp}>
+          <a
+            rel="noopener noreferrer"
+            href="#"
+            onClick={handleSignUp}
+            className="pl-1"
+          >
             Registrati
           </a>
         </p>
