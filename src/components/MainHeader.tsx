@@ -2,7 +2,7 @@ import SearchBar from "./searchbar/SearchBar";
 import { Link, useNavigate } from "react-router";
 import { auth } from "./Firebase";
 import { useState, useEffect, useRef } from "react";
-import "./MainHeader.css";
+// import "./MainHeader.css";
 
 type Menu = { id: number; category: string };
 
@@ -125,7 +125,9 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
             />
           </svg>
         </button>
-        <SearchBar value={searchValue ?? ""} onChange={onSearchChange} />
+        <div className="hidden lg:block">
+          <SearchBar value={searchValue ?? ""} onChange={onSearchChange} />
+        </div>
         <img
           src="/assets/img/pngwing.com.png"
           alt="cast"
