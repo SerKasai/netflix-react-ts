@@ -150,13 +150,13 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
               <p className="mb-4">Sei sicuro di voler effettuare il logout?</p>
               <div className="flex gap-4 justify-center">
                 <button
-                  className="px-3 py-1 border rounded text-white border-none!"
+                  className="px-3 py-1 border rounded text-white border-none! bg-black"
                   onClick={() => setShowConfirm(false)}
                 >
                   Annulla
                 </button>
                 <button
-                  className="px-3 py-1  text-red-600 rounded border-none!"
+                  className="px-3 py-1  text-red-600 rounded border-none! bg-black"
                   onClick={async () => {
                     setShowConfirm(false);
                     await handleLogout(true);
