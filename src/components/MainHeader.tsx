@@ -2,6 +2,7 @@ import SearchBar from "./searchbar/SearchBar";
 import { Link, useNavigate } from "react-router";
 import { auth } from "./Firebase";
 import { useState, useEffect, useRef } from "react";
+import "./MainHeader.css";
 
 type Menu = { id: number; category: string };
 
@@ -87,7 +88,6 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
           className="max-w-[30px] cursor-pointer p-[3px] hidden sm:block"
         />
       </Link>
-      {/* Desktop nav - hidden on small screens */}
       <ul className="hidden lg:flex flex-row gap-x-14 px-16">
         {navbar.map((link) => (
           <Link
@@ -170,7 +170,7 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
         {/* Mobile toolbar */}
         {mobileOpen && (
           <div className="fixed inset-0 z-70 bg-black/60 flex">
-            <div className="w-3/4 sm:w-1/3 bg-black text-white p-6 transform transition-transform duration-300 translate-x-0">
+            <div className="toolbar w-3/4 sm:w-1/3 bg-black text-white p-6 transform transition-transform duration-300 translate-x-0">
               <div className="flex items-center justify-between mb-4">
                 <Link to="/">
                   <img

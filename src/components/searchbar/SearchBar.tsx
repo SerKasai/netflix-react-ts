@@ -22,7 +22,7 @@ const SearchBar = ({ value = "", onChange }: Props) => {
   }, [active]);
 
   return (
-    <div className="searchbar hidden! sm:block!">
+    <div className="searchbar hidden sm:block!">
       <div className="relative w-full flex items-center">
         <input
           type="text"
