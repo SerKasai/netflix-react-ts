@@ -65,7 +65,7 @@ function Film({ search = "" }: Props) {
   return (
     <main>
       <div className="flex flex-col items-start">
-        <h2 className="p-4">Film popolari</h2>
+        <h2 className="p-4 text-white">Film popolari</h2>
         <ul className="justify-between flex-wrap gap-y-5 w-full cursor-default">
           {useSlider ? (
             <Slider {...settings}>

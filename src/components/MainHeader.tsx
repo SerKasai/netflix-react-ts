@@ -2,7 +2,6 @@ import SearchBar from "./searchbar/SearchBar";
 import { Link, useNavigate } from "react-router";
 import { auth } from "./Firebase";
 import { useState, useEffect, useRef } from "react";
-// import "./MainHeader.css";
 
 type Menu = { id: number; category: string };
 
@@ -85,7 +84,7 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
         <img
           src="/assets/img/330px-Netflix_2015_N_logo.svg.png"
           alt="logo"
-          className="max-w-[30px] cursor-pointer p-[3px] hidden sm:block"
+          className="max-w-[30px] cursor-pointer p-[3px]"
         />
       </Link>
       <ul className="hidden lg:flex flex-row gap-x-14 px-16">
@@ -105,7 +104,7 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
       <div className="flex gap-x-10 grow-1 justify-center! h-[30px] items-center sm:justify-end!">
         {/* Mobile hamburger */}
         <button
-          className="lg:hidden mr-2"
+          className="lg:hidden mr-2 hover:border-none! bg-[#1a1a1a]!"
           aria-label="Open menu"
           onClick={() => setMobileOpen(true)}
         >
@@ -137,7 +136,7 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
           id="logout"
           aria-label="Logout"
           onClick={() => setShowConfirm(true)}
-          className="focus:outline-none! bg-transparent! border-none! focus-visible:outline-none!"
+          className="focus:outline-none! bg-transparent! border-none! focus-visible:outline-none! text-white!"
         >
           Logout
         </button>
@@ -185,7 +184,7 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
                   ref={closeBtnRef}
                   onClick={() => setMobileOpen(false)}
                   aria-label="Close menu"
-                  className="text-white bg-transparent border-none! text-2xl"
+                  className="text-white border-none! text-2xl hover:border-none! bg-[#1a1a1a]!"
                 >
                   ✕
                 </button>
@@ -218,7 +217,7 @@ function MainHeader({ searchValue, onSearchChange }: Props) {
                 />
                 <button
                   id="logout-mobile"
-                  className="px-3 py-1 bg-red-600 text-white rounded"
+                  className="px-3 py-1 text-white rounded hover:border-none! bg-[#1a1a1a]!"
                   onClick={() => {
                     setMobileOpen(false);
                     setShowConfirm(true);

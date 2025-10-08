@@ -65,7 +65,7 @@ function SerieTV({ search = "" }: Props) {
     <>
       <main className="pt-14">
         <div className="flex flex-col items-start">
-          <h2 className="p-4">Serie TV popolari</h2>
+          <h2 className="p-4 text-white">Serie TV popolari</h2>
           <ul className="justify-between flex-wrap gap-y-5 w-full cursor-default">
             {useSlider ? (
               <Slider {...settings}>
